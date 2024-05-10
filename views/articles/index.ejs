@@ -1,22 +1,22 @@
 <%- include("../partials/header.ejs") %>
 
 <div class="container-fluid">
-    <h1 class="my-2">Blog Articles</h1>
+    <h1 class="my-2 fw-bolder">Blog Articles</h1>
     <a class="btn btn-dark my-3" href="/articles/new">New Article</a>
     <% articles.forEach(article => { %>
         <div class="card my-4">
             <div class="card-body">
-                <h3 class="card-title"> <%= article.title %></h3>
-                <div class="card-subtitle text-muted mb-2">
+                <h3 class="card-title fw-bold"> <%= article.title %></h3>
+                <div class="card-subtitle text-muted mb-2 fw-light">
                     <%= article.createdAt.toLocaleDateString() %>
                 </div>
-                <div class="card-text my-2">
+                <div class="card-text my-3">
                     <%= article.description %>
                 </div>
-                <a href="/articles/<%= article.slug %>" class="btn btn-success">Read More</a>
-                <a href="/articles/edit/<%= article.id %>" class="btn btn-light">Edit</a>
+                <a href="/articles/<%= article.slug %>" class="btn btn-success fw-light">Read More</a>
+                <a href="/articles/edit/<%= article.id %>" class="btn btn-light fw-light">Edit</a>
                 <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger fw-light">Delete</button>
                 </form>
             </div>
         </div>

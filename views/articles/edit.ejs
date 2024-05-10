@@ -1,11 +1,10 @@
 <%- include("../partials/header.ejs") %>
 
 <div class="container-fluid">
-<h1 class="my-2">Edit Article</h1>
+<h1 class="my-2 fw-bolder">Edit Article</h1>
 <form action="/articles/<%= article.id %>?_method=PUT" method="POST">
     <%- include("../partials/formFields.ejs") %>
 </form>
-
 </div>
 
 <%- include("../partials/footer.ejs") %>
