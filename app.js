@@ -4,6 +4,8 @@ import methodOverride from "method-override";
 import mongoose from "mongoose";
 import articleRouter from "./routes/articles.js"
 import articleModel from "./models/article.js"
+import { marked } from "marked";
+import slugify from "slugify";
 
 const port = 3000;
 const app = express();

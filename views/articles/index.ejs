@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
     <h1 class="my-2">Blog Articles</h1>
-    <a class="btn btn-dark mt-3" href="/articles/new">New Article</a>
+    <a class="btn btn-dark my-3" href="/articles/new">New Article</a>
     <% articles.forEach(article => { %>
         <div class="card my-4">
             <div class="card-body">
@@ -13,7 +13,10 @@
                 <div class="card-text my-2">
                     <%= article.description %>
                 </div>
-                <a href="articles/<%= article.id %>" class="btn btn-light">Read More</a>
+                <a href="articles/<%= article.slug %>" class="btn btn-light">Read More</a>
+                <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
         </div>
     <% }); %>
