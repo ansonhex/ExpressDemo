@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import slugify from "slugify";
+import { marked } from "marked";
 
 const articleSchema = new mongoose.Schema({
     title: {
@@ -21,6 +22,10 @@ const articleSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    sanitizedHtml: {
+        type: String,
+        required: true
     }
 });
 
@@ -31,6 +36,11 @@ articleSchema.pre("validate", function(next) {
             strict: true
         });
     }
+    if (this.markdown) {
+        const rawHtml = marked(this.markdown);
+        this.sanitizedHtml = rawHtml;
+    }
+
     next();
 });
 

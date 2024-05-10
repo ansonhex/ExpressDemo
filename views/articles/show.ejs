@@ -7,8 +7,8 @@
 <a href="/" class="btn btn-secondary">All Articles<Article></Article></a>
 <a href="/articles/edit<%= article.id %>" class="btn btn-info my-2">Edit</a>
 
-<div>
-    <%= article.markdown %>
+<div class="my-2">
+    <%- article.sanitizedHtml %>
 </div>
 
 
