@@ -13,8 +13,10 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "dompurify": "^3.1.2",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "jsdom": "^24.0.0",
     "marked": "^12.0.2",
     "method-override": "^3.0.0",
     "mongoose": "^8.3.4",

@@ -1,6 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 import slugify from "slugify";
 import { marked } from "marked";
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
+
+const dompurify = createDOMPurify(new JSDOM().window);
 
 const articleSchema = new mongoose.Schema({
     title: {
@@ -38,7 +42,7 @@ articleSchema.pre("validate", function(next) {
     }
     if (this.markdown) {
         const rawHtml = marked(this.markdown);
-        this.sanitizedHtml = rawHtml;
+        this.sanitizedHtml = dompurify.sanitize(rawHtml);
     }
     next();
 });

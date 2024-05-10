@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import articleRouter from "./routes/articles.js"
 import articleModel from "./models/article.js"
 
-const port = 3000;
+const port = 4000;
 const app = express();
 
 mongoose.connect("mongodb://localhost/blog");
