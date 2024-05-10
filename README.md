@@ -10,6 +10,10 @@ This is a simple **CRUD project built using Node.js, Express, and MongoDB**. It 
 - Read/Retrieve articles
 - Update existing articles
 - Delete articles
+- Supports `Markdown` Blog
+
+![ExpressDemo-md](https://raw.githubusercontent.com/ansonhe97/rawimages/master/img/ExpressDemo-md.png)
+
 
 ## Getting Started
 
