@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
 import articleRouter from "./routes/articles.js"
+import articleModel from "./models/article.js"
 
 const port = 3000;
 const app = express();
@@ -18,17 +19,8 @@ app.set("view engine", "ejs");
 // Mount router
 app.use("/articles", articleRouter);
 
-app.get("/", (req, res) => {
-    const articles = [{
-        title: "TEST title",
-        createdAt: new Date(),
-        description: "TEST DECRI"
-    },
-    {
-        title: "TEST title2",
-        createdAt: new Date(),
-        description: "TEST DECRI"
-    }]
+app.get("/", async (req, res) => {
+    const articles = await articleModel.find().sort({createdAt: "descending"});
     res.render("articles/index", {articles});
 });
 

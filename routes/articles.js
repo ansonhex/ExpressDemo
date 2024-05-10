@@ -1,13 +1,34 @@
 import express from "express";
+import Article from "../models/article.js";
 
 const router = express.Router();
 
 router.get("/new", (req, res) => {
-    res.render("articles/new");
+    res.render("articles/new", {article: new Article()});
 });
 
-router.post("/", (req, res) => {
-    
+// dynamically parsing /:id
+router.get("/:id", async (req, res) => {
+    let article = await Article.findById(req.params.id);
+    if (article == null) {
+        res.redirect("/");
+    }
+    res.render("articles/show", {article});
+});
+
+router.post("/", async (req, res) => {
+    let article = new Article({
+        title: req.body.title,
+        description: req.body.description,
+        markdown: req.body.markdown
+    });
+    // save to db
+    try {
+        article = await article.save();
+        res.redirect(`/articles/${article.id}`);
+    } catch (error) {
+        res.render("articles/new", {article});
+    }
 });
 
 export default router;
