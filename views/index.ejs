@@ -1,6 +1,22 @@
 <%- include("partials/header.ejs") %>
 
 
-<p>TEST</p>
+<div class="container-fluid">
+    <h1 class="my-2">Blog Articles</h1>
+    <a class="btn btn-dark mt-3" href="/articles/new">New Article</a>
+    <% articles.forEach(article => { %>
+        <div class="card my-4">
+            <div class="card-body">
+                <h3 class="card-title"> <%= article.title %></h3>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= article.createdAt.toLocaleDateString() %>
+                </div>
+                <div class="card-text my-2">
+                    <%= article.description %>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
 
 <%- include("partials/footer.ejs") %>
