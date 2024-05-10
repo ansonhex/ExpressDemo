@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
+import mongoose from "mongoose";
 
 const port = 3000;
 const app = express();
