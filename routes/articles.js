@@ -8,9 +8,15 @@ router.get("/new", (req, res) => {
 });
 
 router.get("/edit/:id", async (req, res) => {
-    let article = await Article.findById(req.params.id);
-    console.log(article);
-    res.render("articles/edit", {article});
+    try {
+        let article = await Article.findById(req.params.id);
+        if (!article) {
+            return res.sendStatus(404);
+        }
+        res.render("articles/edit", {article});
+    } catch(error) {
+        res.sendStatus(500);
+    }
 });
 
 // dynamically parsing /:id
@@ -37,9 +43,29 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.put("/:id", async (req, res, next) => {
+    req.article = await Article.findById(req.params.id);
+    next();
+}, saveArticleAndRedirect("edit"));
+
 router.delete("/:id", async (req, res) => {
-    await Article.findOneAndDelete(req.params.id);
+    await Article.findOneAndDelete({_id: req.params.id});
     res.redirect("/");
 });
+
+function saveArticleAndRedirect(path) {
+    return async (req, res) => {
+        let article = req.article;
+        article.title = req.body.title;
+        article.description = req.body.description;
+        article.markdown = req.body.markdown;
+        try {
+            article = await article.save();
+            res.redirect(`/articles/${article.slug}`);
+    } catch (e) {
+            res.render(`article/${path}`, {article});
+        }
+    }
+}
 
 export default router;

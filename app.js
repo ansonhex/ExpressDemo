@@ -16,13 +16,13 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
-// Mount router
-app.use("/articles", articleRouter);
-
 app.get("/", async (req, res) => {
     const articles = await articleModel.find().sort({createdAt: "descending"});
     res.render("articles/index", {articles});
 });
+
+// Mount router
+app.use("/articles", articleRouter);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
