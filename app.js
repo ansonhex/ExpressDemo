@@ -6,6 +6,8 @@ import mongoose from "mongoose";
 const port = 3000;
 const app = express();
 
+mongoose.connect("mongodb://localhost/blog");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 // added DEL to HTML using method-override
