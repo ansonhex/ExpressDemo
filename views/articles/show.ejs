@@ -1,15 +1,19 @@
 <%- include("../partials/header.ejs") %>
 
 <div class="container-fluid">
-<h1 class="my-2 fw-bolder"><%= article.title %></h1>
-<div class="text-muted my-2 fw-light"><%= article.createdAt.toLocaleDateString() %></div>
+    <div>
+        <h1 class="my-2 fw-bolder"><%= article.title %></h1>
+        <div class="text-muted my-2 fw-light"><%= article.createdAt.toLocaleDateString() %></div>
+        </div>
+        
+        <a href="/" class="btn btn-secondary">All Articles<Article></Article></a>
+        <a href="/articles/edit/<%= article.id %>" class="btn btn-info my-2">Edit</a>
+        
+        <div class="my-2">
+            <%- article.sanitizedHtml %>
+    </div>
 </div>
-<a href="/" class="btn btn-secondary">All Articles<Article></Article></a>
-<a href="/articles/edit/<%= article.id %>" class="btn btn-info my-2">Edit</a>
 
-<div class="my-2">
-    <%- article.sanitizedHtml %>
-</div>
 
 
 <%- include("../partials/footer.ejs") %>
