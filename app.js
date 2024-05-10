@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
         createdAt: new Date(),
         description: "TEST DECRI"
     }]
-    res.render("index", {articles});
+    res.render("articles/index", {articles});
 });
 
 app.listen(port, () => {
