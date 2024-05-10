@@ -7,6 +7,12 @@ router.get("/new", (req, res) => {
     res.render("articles/new", {article: new Article()});
 });
 
+router.get("/edit/:id", async (req, res) => {
+    let article = await Article.findById(req.params.id);
+    console.log(article);
+    res.render("articles/edit", {article});
+});
+
 // dynamically parsing /:id
 router.get("/:slug", async (req, res) => {
     let article = await Article.findOne({slug: req.params.slug});

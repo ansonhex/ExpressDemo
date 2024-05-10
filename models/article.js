@@ -40,7 +40,6 @@ articleSchema.pre("validate", function(next) {
         const rawHtml = marked(this.markdown);
         this.sanitizedHtml = rawHtml;
     }
-
     next();
 });
 
