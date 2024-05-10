@@ -13,8 +13,8 @@
                 <div class="card-text my-2">
                     <%= article.description %>
                 </div>
-                <a href="articles/<%= article.slug %>" class="btn btn-light">Read More</a>
-                <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+                <a href="/articles/<%= article.slug %>" class="btn btn-success">Read More</a>
+                <a href="/articles/edit/<%= article.id %>" class="btn btn-light">Edit</a>
                 <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
