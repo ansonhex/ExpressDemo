@@ -26,6 +26,15 @@ Before you begin, ensure you have met the following requirements:
 - MongoDB running locally or on a remote server
 - npm (Node Package Manager) installed
 
+### NAS
+
+```bash
+$ sudo docker build -t expressdemo .
+$ sudo docker stop expressapp
+$ sudo docker rm expressapp
+$ sudo docker run -d -p 4000:4000 --name expressapp --link mongodb:mongodb expressdemo
+```
+
 ### Installation
 
 1. **Clone the repository**

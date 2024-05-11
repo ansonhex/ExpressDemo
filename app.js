@@ -8,7 +8,7 @@ import articleModel from "./models/article.js"
 const port = 4000;
 const app = express();
 
-mongoose.connect("mongodb://localhost/blog");
+mongoose.connect("mongodb://mongodb:27017/blog");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
@@ -24,6 +24,6 @@ app.get("/", async (req, res) => {
 // Mount router
 app.use("/articles", articleRouter);
 
-app.listen(port, () => {
+app.listen(port,"0.0.0.0", () => {
     console.log(`listening on port ${port}`);
 });
