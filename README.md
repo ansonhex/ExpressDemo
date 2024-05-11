@@ -35,27 +35,4 @@ $ sudo docker rm expressapp
 $ sudo docker run -d -p 4000:4000 --name expressapp --link mongodb:mongodb expressdemo
 ```
 
-### Installation
-
-1. **Clone the repository**
-
-```bash
-$ git clone https://github.com/ansonhe97/ExpressDemo.git
-$ cd ExpressDemo
-```
-
-2. **Install dependencies**
-
-```bash
-$ npm install
-```
-
-3. **Start the application**
-
-```bash
-$ npm start
-```
-
-This will start the server on the port `4000`, and you will be able to access it at `http://localhost:4000`
-
 ## LICENSE
