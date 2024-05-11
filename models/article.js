@@ -33,13 +33,21 @@ const articleSchema = new mongoose.Schema({
     }
 });
 
-articleSchema.pre("validate", function(next) {
-    if (this.title) {
-        this.slug = slugify(this.title, {
+articleSchema.pre("validate", async function(next) {
+    if (this.isModified("title")) {
+        const baseSlug = slugify(this.title, {
             lower: true,
             strict: true
         });
+        let slug = baseSlug;
+        let count = 0;
+        while (await Article.findOne({ slug })) {
+            count++;
+            slug = `${baseSlug}-${count}`;
+        }
+        this.slug = slug;
     }
+
     if (this.markdown) {
         const rawHtml = marked(this.markdown);
         this.sanitizedHtml = dompurify.sanitize(rawHtml);

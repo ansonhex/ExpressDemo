@@ -1,5 +1,6 @@
 import express from "express";
 import Article from "../models/article.js";
+import slugify from "slugify";
 
 const router = express.Router();
 
@@ -7,9 +8,9 @@ router.get("/new", (req, res) => {
     res.render("articles/new", {article: new Article()});
 });
 
-router.get("/edit/:id", async (req, res) => {
+router.get("/edit/:slug", async (req, res) => {
     try {
-        let article = await Article.findById(req.params.id);
+        let article = await Article.findOne({slug: req.params.slug});
         if (!article) {
             return res.sendStatus(404);
         }
@@ -19,7 +20,7 @@ router.get("/edit/:id", async (req, res) => {
     }
 });
 
-// dynamically parsing /:id
+// dynamically parsing /:slug
 router.get("/:slug", async (req, res) => {
     let article = await Article.findOne({slug: req.params.slug});
     if (article == null) {
@@ -43,14 +44,21 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.put("/:id", async (req, res, next) => {
-    req.article = await Article.findById(req.params.id);
+router.put("/:slug", async (req, res, next) => {
+    req.article = await Article.findOne({slug: req.params.slug});
     next();
 }, saveArticleAndRedirect("edit"));
 
-router.delete("/:id", async (req, res) => {
-    await Article.findOneAndDelete({_id: req.params.id});
-    res.redirect("/");
+router.delete("/:slug", async (req, res) => {
+    try {
+        const result = await Article.findOneAndDelete({slug: req.params.slug});
+        if (!result) {
+            return res.sendStatus(404);
+        }
+        res.redirect("/");
+    } catch (error) {
+        res.sendStatus(500);
+    }
 });
 
 function saveArticleAndRedirect(path) {
@@ -59,6 +67,8 @@ function saveArticleAndRedirect(path) {
         article.title = req.body.title;
         article.description = req.body.description;
         article.markdown = req.body.markdown;
+        // Update slug if title changes
+        article.slug = slugify(article.title, {lower: true, strict: true});
         try {
             article = await article.save();
             res.redirect(`/articles/${article.slug}`);
