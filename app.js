@@ -39,6 +39,6 @@ app.use((err, req, res, next) => {
     res.sendStatus(500);
 });
 
-app.listen(port,"0.0.0.0", () => {
+app.listen(port, "0.0.0.0", () => {
     console.log(`listening on port ${port}`);
 });
