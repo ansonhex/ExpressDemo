@@ -70,10 +70,26 @@ router.post("/:slug/comments", async (req, res) => {
         }
         // Main logic
         article.comments.push({
-            body: req.body.body,
+            body: req.body.commentContent,
         });
         await article.save();
         res.redirect(`/articles/${req.params.slug}`);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+});
+
+// delete comment route
+router.post("/:slug/comments/delete", async (req, res) => {
+    try {
+        const article = await Article.findOne({ slug: req.params.slug });
+        if (!article) {
+            return res.sendStatus(404);
+        }
+        // delete all comments
+        article.comments = [];
+        await article.save();
+        res.redirect(`/articles/${article.slug}`);
     } catch (error) {
         res.sendStatus(500);
     }
