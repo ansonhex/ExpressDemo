@@ -17,12 +17,27 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 app.get("/", async (req, res) => {
-    const articles = await articleModel.find().sort({createdAt: "descending"});
-    res.render("articles/index", {articles});
+    try {
+        const articles = await articleModel.find().sort({createdAt: "descending"});
+        res.render("articles/index", {articles});
+    } catch (error) {
+        // pass error to next middleware
+        next(error);
+    }
 });
 
 // Mount router
 app.use("/articles", articleRouter);
+
+// Error middleware
+app.use((err, req, res, next) => {
+    res.sendStatus(500);
+});
+
+// Error middleware
+app.use((err, req, res, next) => {
+    res.sendStatus(500);
+});
 
 app.listen(port,"0.0.0.0", () => {
     console.log(`listening on port ${port}`);
