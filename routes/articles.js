@@ -62,7 +62,7 @@ router.delete("/:slug", async (req, res) => {
 });
 
 // Comment route
-router.post('/:slug/comments', async (req, res) => {
+router.post("/:slug/comments", async (req, res) => {
     try {
         const article = await Article.findOne({ slug: req.params.slug });
         if (!article) {
