@@ -61,6 +61,24 @@ router.delete("/:slug", async (req, res) => {
     }
 });
 
+// Comment route
+router.post("/:slug/comments", async (req, res) => {
+    try {
+        const article = await Article.findOne({ slug: req.params.slug });
+        if (!article) {
+            return res.sendStatus(404);
+        }
+        // Main logic
+        article.comments.push({
+            body: req.body.body,
+        });
+        await article.save();
+        res.redirect(`/articles/${req.params.slug}`);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+});
+
 function saveArticleAndRedirect(path) {
     return async (req, res) => {
         let article = req.article;
