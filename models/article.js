@@ -6,6 +6,12 @@ import { JSDOM } from "jsdom";
 
 const dompurify = createDOMPurify(new JSDOM().window);
 
+// Schema for simple comment system
+const commentSchema = new mongoose.Schema({
+    body: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+});
+
 const articleSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -30,7 +36,8 @@ const articleSchema = new mongoose.Schema({
     sanitizedHtml: {
         type: String,
         required: true
-    }
+    },
+    comments: [commentSchema] // embedded comment schema array
 });
 
 articleSchema.pre("validate", async function(next) {

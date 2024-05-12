@@ -12,6 +12,25 @@
         <div class="my-2">
             <%- article.sanitizedHtml %>
     </div>
+
+    <!-- COMMENTS  -->
+    <div class="container-fluid my-2 py-2 px-0">
+        <h3 class="border-top pt-2 fw-normal">Comments</h3>
+        <form action="/articles/<%= article.slug %>/comments" method="POST" class="d-flex align-items-start">
+            <div>
+                <textarea id="body" name="body" required class="form-control me-auto my-2" style="width: 80%;"></textarea>
+                <button type="submit" class="btn btn-secondary fw-lighter btn-sm">Add Comment</button>
+            </div>
+        </form>
+    </div>
+    <!-- SHOWING COMMENTS -->
+    <div class="container-fluid my-2 py-2 px-0 fw-lighter fs-6">
+        <% const displayedComments = [...article.comments].reverse(); %>
+        <% displayedComments.forEach(comment => { %>
+            <p><strong><%= comment.username %></strong> (<%= comment.createdAt.toDateString() %>):
+            <%= comment.body %></p>
+        <% }); %>
+    </div>
 </div>
 
 
