@@ -36,4 +36,10 @@ $ sudo docker rm expressapp
 $ sudo docker run -d -p 4000:4000 --name expressapp --link mongodb:mongodb expressdemo
 ```
 
+or
+
+```bash
+$ ./deploy.sh
+```
+
 ## LICENSE
