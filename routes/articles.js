@@ -8,7 +8,7 @@ router.get("/new", (req, res) => {
     res.render("articles/new", {article: new Article()});
 });
 
-router.get("/edit/:slug", async (req, res) => {
+router.get("/edit/:slug", async (req, res, next) => {
     try {
         let article = await Article.findOne({slug: req.params.slug});
         if (!article) {
@@ -16,7 +16,7 @@ router.get("/edit/:slug", async (req, res) => {
         }
         res.render("articles/edit", {article});
     } catch(error) {
-        res.sendStatus(500);
+        next(error);
     }
 });
 
@@ -49,7 +49,7 @@ router.put("/:slug", async (req, res, next) => {
     next();
 }, saveArticleAndRedirect("edit"));
 
-router.delete("/:slug", async (req, res) => {
+router.delete("/:slug", async (req, res, next) => {
     try {
         const result = await Article.findOneAndDelete({slug: req.params.slug});
         if (!result) {
@@ -57,12 +57,12 @@ router.delete("/:slug", async (req, res) => {
         }
         res.redirect("/");
     } catch (error) {
-        res.sendStatus(500);
+        next();
     }
 });
 
 // Comment route
-router.post("/:slug/comments", async (req, res) => {
+router.post("/:slug/comments", async (req, res, next) => {
     try {
         const article = await Article.findOne({ slug: req.params.slug });
         if (!article) {
@@ -75,12 +75,12 @@ router.post("/:slug/comments", async (req, res) => {
         await article.save();
         res.redirect(`/articles/${req.params.slug}`);
     } catch (error) {
-        res.sendStatus(500);
+        next();
     }
 });
 
 // delete comment route
-router.post("/:slug/comments/delete", async (req, res) => {
+router.post("/:slug/comments/delete", async (req, res, next) => {
     try {
         const article = await Article.findOne({ slug: req.params.slug });
         if (!article) {
@@ -91,7 +91,7 @@ router.post("/:slug/comments/delete", async (req, res) => {
         await article.save();
         res.redirect(`/articles/${article.slug}`);
     } catch (error) {
-        res.sendStatus(500);
+        next();
     }
 });
 
