@@ -80,7 +80,7 @@ router.post("/:slug/comments", async (req, res, next) => {
 });
 
 // delete comment route
-router.post("/:slug/comments/delete", async (req, res, next) => {
+router.delete("/:slug/comments/delete", async (req, res, next) => {
     try {
         const article = await Article.findOne({ slug: req.params.slug });
         if (!article) {

@@ -23,7 +23,7 @@
             <button type="submit" class="btn btn-secondary fw-light btn-sm">Add Comment</button>
         </form>
         <!-- Add form to delete all comments -->
-        <form action="/articles/<%= article.slug %>/comments/delete" method="POST" class="mt-3">
+        <form action="/articles/<%= article.slug %>/comments/delete?_method=DELETE" method="POST" class="mt-3">
             <button type="submit" class="btn btn-danger fw-light btn-sm" onclick="return confirm('Are you sure you want to delete all comments?');">Delete All Comments</button>
         </form>
     </div>
