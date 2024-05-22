@@ -4,7 +4,7 @@
 
 This is a simple **CRUD project built using Node.js, Express, and MongoDB**. It provides basic functionality to create, read, update, and delete articles.
 
-> [Live Demo](http://ansonhe.duckdns.org:4000/)
+> [Live Demo](https://blog.ansonhe.duckdns.org/)
 
 ## Features
 
